@@ -4,3 +4,7 @@ class UsersEndpoints {
   static const String signUp = "/users/signup";
   static const String signIn = "/users/signin";
 }
+
+class RecordsEndpoints {
+  static const String createRecord = "/records/create-record";
+}

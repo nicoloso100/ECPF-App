@@ -78,7 +78,7 @@ class Step8 extends StatelessWidget {
                             value: result!.percentilImc.toString()),
                         ResultItemDTO(
                             label: Step1Constants.RESULTADO,
-                            value: result!.resultadoImc)
+                            value: result!.resultadoImc.toString())
                       ]
                     : []),
             const Divider(),

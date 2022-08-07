@@ -1,3 +1,4 @@
+import 'package:ecpfapp/DTOs/create_record_dto.dart';
 import 'package:ecpfapp/DTOs/step_1_dto.dart';
 import 'package:ecpfapp/DTOs/step_2_dto.dart';
 import 'package:ecpfapp/DTOs/step_3_dto.dart';
@@ -14,6 +15,9 @@ import 'package:ecpfapp/Pages/AddRecord/widgets/step_5.dart';
 import 'package:ecpfapp/Pages/AddRecord/widgets/step_6.dart';
 import 'package:ecpfapp/Pages/AddRecord/widgets/step_7.dart';
 import 'package:ecpfapp/Pages/AddRecord/widgets/step_8.dart';
+import 'package:ecpfapp/Requests/ApiRequests/records_requests.dart';
+import 'package:ecpfapp/Requests/HiveRequests/session_requests.dart';
+import 'package:ecpfapp/Utils/toast_notification.dart';
 import 'package:ecpfapp/Widgets/custom_app_bar.dart';
 import 'package:ecpfapp/Widgets/stepper_icon.dart';
 import 'package:enhance_stepper/enhance_stepper.dart';
@@ -113,8 +117,32 @@ class _AddRecordPageState extends State<AddRecordPage> {
     }
   }
 
-  void onSave() {
+  void onReturnToRecordList() {
+    Navigator.pop(context);
+  }
+
+  void onSave() async {
     if (widget.loggeduser) {
+      var session = await getSession();
+      if (session != null) {
+        var entity = result;
+        if (entity != null) {
+          var params = CreateRecordDTO.getDtoFromEntity(entity, session);
+          var record = await createRecord(params);
+          if (record != null) {
+            onReturnToRecordList();
+          }
+        } else {
+          showToastNotification(
+              text: "El formualrio no se encuentra completo",
+              type: ToastNotificationType.error);
+        }
+      } else {
+        showToastNotification(
+            text:
+                "No se ha encontrado el ID de la sesión, por favor cierre sesión e ingrese nuevamente",
+            type: ToastNotificationType.error);
+      }
     } else {
       Navigator.pop(context);
     }

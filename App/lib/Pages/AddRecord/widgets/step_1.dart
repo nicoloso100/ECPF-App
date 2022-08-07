@@ -80,7 +80,7 @@ class _Step1State extends State<Step1> {
       var peso = double.tryParse(pesoController.text);
       var imc = double.tryParse(results[0].value ?? "");
       var percentilImc = double.tryParse(results[1].value ?? "");
-      var resultado = results[0].value;
+      var resultado = double.tryParse(results[0].value ?? "");
       if (talla != null &&
           peso != null &&
           imc != null &&
