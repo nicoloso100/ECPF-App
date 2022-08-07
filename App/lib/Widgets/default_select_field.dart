@@ -63,7 +63,7 @@ class _DefaultSelectedFieldState extends State<DefaultSelectField> {
                   value: value,
                   child: Text(
                     value,
-                    style: GoogleFonts.assistant(),
+                    style: GoogleFonts.karla(),
                   ),
                 );
               }).toList(),

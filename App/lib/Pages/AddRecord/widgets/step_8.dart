@@ -7,12 +7,17 @@ import 'package:ecpfapp/Widgets/step_result.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class Step8 extends StatelessWidget {
+  final bool loggeduser;
   final NewRecordEntity? result;
   final Function() onFinish;
   final Function() onCancel;
 
   const Step8(
-      {Key? key, this.result, required this.onFinish, required this.onCancel})
+      {Key? key,
+      this.result,
+      required this.onFinish,
+      required this.onCancel,
+      required this.loggeduser})
       : super(key: key);
 
   double getSuma() {
@@ -190,7 +195,9 @@ class Step8 extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     DefaultButton(text: "Retroceder", onPress: onCancel),
-                    DefaultButton(text: "Guardar", onPress: onFinish),
+                    DefaultButton(
+                        text: loggeduser ? "Guardar" : "Cerrar",
+                        onPress: onFinish),
                   ],
                 ))
           ],

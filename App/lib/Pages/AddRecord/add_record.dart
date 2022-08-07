@@ -6,21 +6,22 @@ import 'package:ecpfapp/DTOs/step_5_dto.dart';
 import 'package:ecpfapp/DTOs/step_6_dto.dart';
 import 'package:ecpfapp/DTOs/step_7_dto.dart';
 import 'package:ecpfapp/Entities/new_record_entity.dart';
-import 'package:ecpfapp/Pages/AddRecord/step_1.dart';
-import 'package:ecpfapp/Pages/AddRecord/step_2.dart';
-import 'package:ecpfapp/Pages/AddRecord/step_3.dart';
-import 'package:ecpfapp/Pages/AddRecord/step_4.dart';
-import 'package:ecpfapp/Pages/AddRecord/step_5.dart';
-import 'package:ecpfapp/Pages/AddRecord/step_6.dart';
-import 'package:ecpfapp/Pages/AddRecord/step_7.dart';
-import 'package:ecpfapp/Pages/AddRecord/step_8.dart';
+import 'package:ecpfapp/Pages/AddRecord/widgets/step_1.dart';
+import 'package:ecpfapp/Pages/AddRecord/widgets/step_2.dart';
+import 'package:ecpfapp/Pages/AddRecord/widgets/step_3.dart';
+import 'package:ecpfapp/Pages/AddRecord/widgets/step_4.dart';
+import 'package:ecpfapp/Pages/AddRecord/widgets/step_5.dart';
+import 'package:ecpfapp/Pages/AddRecord/widgets/step_6.dart';
+import 'package:ecpfapp/Pages/AddRecord/widgets/step_7.dart';
+import 'package:ecpfapp/Pages/AddRecord/widgets/step_8.dart';
 import 'package:ecpfapp/Widgets/custom_app_bar.dart';
 import 'package:ecpfapp/Widgets/stepper_icon.dart';
 import 'package:enhance_stepper/enhance_stepper.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class AddRecordPage extends StatefulWidget {
-  const AddRecordPage({Key? key}) : super(key: key);
+  final bool loggeduser;
+  const AddRecordPage({Key? key, required this.loggeduser}) : super(key: key);
 
   @override
   State<AddRecordPage> createState() => _AddRecordPageState();
@@ -112,7 +113,12 @@ class _AddRecordPageState extends State<AddRecordPage> {
     }
   }
 
-  void onSave() {}
+  void onSave() {
+    if (widget.loggeduser) {
+    } else {
+      Navigator.pop(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +130,7 @@ class _AddRecordPageState extends State<AddRecordPage> {
           child: Column(
         children: [
           Text(
-            'Agregar nuevo registro',
+            widget.loggeduser ? 'Agregar nuevo registro' : 'Calculadora',
             style: TextStyle(
                 color: theme.defaultTextColor,
                 fontWeight: FontWeight.w700,
@@ -204,6 +210,7 @@ class _AddRecordPageState extends State<AddRecordPage> {
                       title: Text('Resultado total',
                           style: TextStyle(color: theme.defaultTextColor)),
                       content: Step8(
+                          loggeduser: widget.loggeduser,
                           result: result,
                           onFinish: onSave,
                           onCancel: onStepCancel),

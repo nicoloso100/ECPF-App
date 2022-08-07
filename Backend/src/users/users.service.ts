@@ -24,6 +24,7 @@ export class UsersService {
       const createdStore = new this.userModel(signUserDto);
       await createdStore.save();
       return {
+        id: createdStore.id,
         email: signUserDto.email,
       };
     } catch (error) {

@@ -1,19 +1,17 @@
 import 'package:ecpfapp/Constants/assets.dart';
 import 'package:ecpfapp/Constants/routing.dart';
-import 'package:ecpfapp/Widgets/custom_app_bar.dart';
-import 'package:ecpfapp/Widgets/home_app_bar.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class ShowRecords extends StatefulWidget {
+  const ShowRecords({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ShowRecords> createState() => _ShowRecordsState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ShowRecordsState extends State<ShowRecords> {
   void onAddRecord() {
-    Navigator.pushNamed(context, HomeRoutes.addRecord);
+    Navigator.pushNamed(context, LoggedRoutes.addRecord);
   }
 
   @override
