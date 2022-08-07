@@ -22,11 +22,18 @@ class MyApp extends StatelessWidget {
       title: 'ECPF-App',
       themeMode: ThemeMode.dark,
       theme: NeumorphicThemeData(
+          // textTheme: GoogleFonts.assistantTextTheme(),
+          // baseColor: AppColors.lightPrimary,
+          // accentColor: AppColors.lightSecundary,
+          // shadowLightColor: AppColors.lightShadow,
+          // defaultTextColor: AppColors.lightText,
+          // lightSource: LightSource.topLeft
           textTheme: GoogleFonts.assistantTextTheme(),
-          baseColor: AppColors.lightPrimary,
-          accentColor: AppColors.lightSecundary,
-          shadowLightColor: AppColors.lightShadow,
-          defaultTextColor: AppColors.lightText,
+          baseColor: AppColors.darkPrimary,
+          accentColor: AppColors.darkSecundary,
+          shadowLightColor: AppColors.darkShadow,
+          defaultTextColor: AppColors.darkText,
+          borderColor: AppColors.darkBorder,
           lightSource: LightSource.topLeft),
       darkTheme: NeumorphicThemeData(
           textTheme: GoogleFonts.assistantTextTheme(),
