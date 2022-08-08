@@ -1,0 +1,27 @@
+version: "3.4"
+
+volumes:
+  ECPF_DB:
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ECPF123
+    ports:
+      - 27017:27017
+    volumes:
+      - ECPF_DB:/data/db
+
+  ecpf:
+    image: nicoloso100/ecpf-backend:latest
+    depends_on:
+      - mongo
+    ports:
+      - "80:3000"
+    links:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://root:ECPF123@mongo:27017/ecpf?authSource=admin

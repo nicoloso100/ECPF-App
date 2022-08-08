@@ -12,6 +12,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     MongooseModule.forRootAsync({
       useFactory: async (configService: ConfigService) => {
         const server = configService.get<string>('MONGO_URI');
+        console.log(
+          `------------------------------------------------${server}---------------------------------------------`,
+        );
         const dbname = 'ecpf';
         return {
           uri: server,
