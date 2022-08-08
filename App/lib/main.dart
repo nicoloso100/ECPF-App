@@ -79,7 +79,7 @@ class _MyAppState extends State<MyApp> {
             );
           });
     } else {
-      return Container(color: Colors.red);
+      return Container(color: Colors.white);
     }
   }
 }
