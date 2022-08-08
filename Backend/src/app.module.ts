@@ -4,10 +4,22 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { RecordsModule } from './records/records.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/ecpf'),
+    ConfigModule.forRoot({ isGlobal: true }),
+    MongooseModule.forRootAsync({
+      useFactory: async (configService: ConfigService) => {
+        const server = configService.get<string>('MONGO_URI');
+        const dbname = 'ecpf';
+        return {
+          uri: server,
+          dbName: dbname,
+        };
+      },
+      inject: [ConfigService],
+    }),
     UsersModule,
     RecordsModule,
   ],
