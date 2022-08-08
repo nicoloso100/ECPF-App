@@ -1,4 +1,4 @@
-const String baseAPI = "http://10.0.2.2:3000";
+const String baseAPI = "http://35.196.153.103";
 
 class UsersEndpoints {
   static const String signUp = "/users/signup";

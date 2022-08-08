@@ -111,7 +111,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         onTap: () => Navigator.pop(context),
                         child: RichText(
                             text: TextSpan(children: [
-                          const TextSpan(text: "Ya tienes cuenta?"),
+                          TextSpan(
+                              text: "Ya tienes cuenta?",
+                              style: TextStyle(color: theme.defaultTextColor)),
                           TextSpan(
                               text: " Ingresa",
                               style: TextStyle(
