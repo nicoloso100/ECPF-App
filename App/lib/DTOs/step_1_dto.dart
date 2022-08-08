@@ -5,7 +5,7 @@ class Step1DTO {
   final double peso;
   final double imc;
   final double percentilImc;
-  final double resultado;
+  final String resultado;
 
   Step1DTO(
       {required this.documento,

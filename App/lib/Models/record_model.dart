@@ -1,4 +1,5 @@
 class RecordModel {
+  final String id;
   final String userId;
   final String documento;
   final String genero;
@@ -6,7 +7,7 @@ class RecordModel {
   final double peso;
   final double imc;
   final double percentilImc;
-  final double resultadoImc;
+  final String resultadoImc;
   final double porcentajeGrasa;
   final double percentilGrasa;
   final String resultadoGrasa;
@@ -27,10 +28,13 @@ class RecordModel {
   final double sitAndReach;
   final double percentilFlexibilidad;
   final String resultadoSitAndReach;
+  final double total;
+  final String resultado;
   final DateTime creationDate;
 
   RecordModel(
-      {required this.userId,
+      {required this.id,
+      required this.userId,
       required this.documento,
       required this.genero,
       required this.talla,
@@ -58,9 +62,12 @@ class RecordModel {
       required this.sitAndReach,
       required this.percentilFlexibilidad,
       required this.resultadoSitAndReach,
+      required this.total,
+      required this.resultado,
       required this.creationDate});
 
   factory RecordModel.fromJson(Map<String, dynamic> json) => RecordModel(
+      id: json['_id'],
       userId: json['userId'],
       documento: json['documento'],
       genero: json['genero'],
@@ -68,7 +75,7 @@ class RecordModel {
       peso: json['peso'].toDouble(),
       imc: json['imc'].toDouble(),
       percentilImc: json['percentilImc'].toDouble(),
-      resultadoImc: json['resultadoImc'].toDouble(),
+      resultadoImc: json['resultadoImc'],
       porcentajeGrasa: json['porcentajeGrasa'].toDouble(),
       percentilGrasa: json['percentilGrasa'].toDouble(),
       resultadoGrasa: json['resultadoGrasa'],
@@ -89,5 +96,7 @@ class RecordModel {
       sitAndReach: json['sitAndReach'].toDouble(),
       percentilFlexibilidad: json['percentilFlexibilidad'].toDouble(),
       resultadoSitAndReach: json['resultadoSitAndReach'],
+      total: json['total'].toDouble(),
+      resultado: json['resultado'],
       creationDate: DateTime.parse(json['creationDate']));
 }

@@ -1,3 +1,4 @@
+import 'package:ecpfapp/Constants/routing.dart';
 import 'package:ecpfapp/DTOs/create_record_dto.dart';
 import 'package:ecpfapp/DTOs/step_1_dto.dart';
 import 'package:ecpfapp/DTOs/step_2_dto.dart';
@@ -17,6 +18,7 @@ import 'package:ecpfapp/Pages/AddRecord/widgets/step_7.dart';
 import 'package:ecpfapp/Pages/AddRecord/widgets/step_8.dart';
 import 'package:ecpfapp/Requests/ApiRequests/records_requests.dart';
 import 'package:ecpfapp/Requests/HiveRequests/session_requests.dart';
+import 'package:ecpfapp/Utils/dialog_notification.dart';
 import 'package:ecpfapp/Utils/toast_notification.dart';
 import 'package:ecpfapp/Widgets/custom_app_bar.dart';
 import 'package:ecpfapp/Widgets/stepper_icon.dart';
@@ -105,44 +107,60 @@ class _AddRecordPageState extends State<AddRecordPage> {
         step7DTO != null) {
       setState(() {
         result = NewRecordEntity.generateFromDTOs(
-            step1DTO: step1DTO!,
-            step2DTO: step2DTO!,
-            step3DTO: step3DTO!,
-            step4DTO: step4DTO!,
-            step5DTO: step5DTO!,
-            step6DTO: step6DTO!,
-            step7DTO: step7DTO!);
+          step1DTO: step1DTO!,
+          step2DTO: step2DTO!,
+          step3DTO: step3DTO!,
+          step4DTO: step4DTO!,
+          step5DTO: step5DTO!,
+          step6DTO: step6DTO!,
+          step7DTO: step7DTO!,
+        );
       });
       onStepContinue();
     }
   }
 
   void onReturnToRecordList() {
-    Navigator.pop(context);
+    Navigator.pushReplacementNamed(context, LoggedRoutes.showRecords);
   }
 
-  void onSave() async {
+  void onSave(double total, String resultado) async {
     if (widget.loggeduser) {
       var session = await getSession();
       if (session != null) {
         var entity = result;
         if (entity != null) {
-          var params = CreateRecordDTO.getDtoFromEntity(entity, session);
+          var params = CreateRecordDTO.getDtoFromEntity(
+              entity, session, total, resultado);
           var record = await createRecord(params);
           if (record != null) {
             onReturnToRecordList();
           }
         } else {
-          showToastNotification(
+          () => showToastNotification(
               text: "El formualrio no se encuentra completo",
               type: ToastNotificationType.error);
         }
       } else {
-        showToastNotification(
+        () => showToastNotification(
             text:
                 "No se ha encontrado el ID de la sesión, por favor cierre sesión e ingrese nuevamente",
             type: ToastNotificationType.error);
       }
+    } else {
+      Navigator.pop(context);
+    }
+  }
+
+  void onBack() {
+    if (widget.loggeduser) {
+      showConfirmationDialog(context,
+          title: "Salir",
+          description:
+              "¿Está seguro que desea salir de la creación de un registro? Perderá todos los datos ingresados",
+          onOk: () async {
+        onReturnToRecordList();
+      });
     } else {
       Navigator.pop(context);
     }
@@ -153,7 +171,7 @@ class _AddRecordPageState extends State<AddRecordPage> {
     var theme = NeumorphicTheme.currentTheme(context);
 
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: CustomAppBar(customOnBack: onBack),
       body: SafeArea(
           child: Column(
         children: [

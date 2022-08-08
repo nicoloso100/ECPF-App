@@ -9,7 +9,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 class Step8 extends StatelessWidget {
   final bool loggeduser;
   final NewRecordEntity? result;
-  final Function() onFinish;
+  final Function(double total, String resultado) onFinish;
   final Function() onCancel;
 
   const Step8(
@@ -55,6 +55,17 @@ class Step8 extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
+            Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    DefaultButton(text: "Retroceder", onPress: onCancel),
+                    DefaultButton(
+                        text: loggeduser ? "Guardar" : "Cerrar",
+                        onPress: () => onFinish(getSuma(), getResultado())),
+                  ],
+                )),
             StepResult(
                 result: result != null
                     ? [
@@ -197,7 +208,7 @@ class Step8 extends StatelessWidget {
                     DefaultButton(text: "Retroceder", onPress: onCancel),
                     DefaultButton(
                         text: loggeduser ? "Guardar" : "Cerrar",
-                        onPress: onFinish),
+                        onPress: () => onFinish(getSuma(), getResultado())),
                   ],
                 ))
           ],

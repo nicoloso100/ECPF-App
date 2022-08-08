@@ -1,6 +1,7 @@
 import 'package:ecpfapp/Constants/assets.dart';
 import 'package:ecpfapp/Constants/routing.dart';
 import 'package:ecpfapp/Widgets/home_button.dart';
+import 'package:ecpfapp/Widgets/main_app_bar.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,6 +12,7 @@ class HomePage extends StatelessWidget {
     var theme = NeumorphicTheme.currentTheme(context);
 
     return Scaffold(
+        appBar: const MainAppBar(),
         body: SafeArea(
             child: Padding(
                 padding: const EdgeInsets.all(20),
@@ -19,16 +21,17 @@ class HomePage extends StatelessWidget {
                     const SizedBox(height: 30),
                     Neumorphic(
                       style: NeumorphicStyle(
-                          shape: NeumorphicShape.convex,
-                          boxShape: const NeumorphicBoxShape.circle(),
-                          depth: 10,
-                          intensity: 5,
-                          lightSource: LightSource.topLeft,
-                          color: theme.variantColor,
-                          border: NeumorphicBorder(
-                              color: theme.borderColor, width: 5)),
+                        shape: NeumorphicShape.convex,
+                        boxShape: const NeumorphicBoxShape.circle(),
+                        depth: 10,
+                        intensity: 5,
+                        lightSource: LightSource.topLeft,
+                        color: theme.variantColor,
+                        // border: NeumorphicBorder(
+                        //     color: theme.borderColor, width: 5)
+                      ),
                       child: const Padding(
-                        padding: EdgeInsets.all(5),
+                        padding: EdgeInsets.all(0),
                         child: Image(
                           image: AppAssets.escudo,
                           width: 200,

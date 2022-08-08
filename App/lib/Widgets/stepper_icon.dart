@@ -28,8 +28,7 @@ class StepperIcon extends StatelessWidget {
       child: Center(
           child: Text(
         step.toString(),
-        style: TextStyle(
-            color: theme.defaultTextColor, fontWeight: FontWeight.w700),
+        style: TextStyle(color: theme.baseColor, fontWeight: FontWeight.w700),
       )),
     );
   }

@@ -1,9 +1,12 @@
 import 'package:ecpfapp/Constants/colors.dart';
+import 'package:ecpfapp/Constants/hive.dart';
 import 'package:ecpfapp/Navigation/home_navigation.dart';
+import 'package:ecpfapp/Requests/HiveRequests/darkmode_requests.dart';
 import 'package:ecpfapp/Requests/HiveRequests/session_requests.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +21,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool ready = false;
-  bool logged = false;
+  bool isLogged = false;
 
   @override
   void initState() {
@@ -27,54 +30,56 @@ class _MyAppState extends State<MyApp> {
   }
 
   void onPrepareApp() async {
+    await getDarkmodeBox();
     var session = await getSession();
-    if (session != null) {
-      setState(() {
-        ready = true;
-        logged = true;
-      });
-    } else {
-      setState(() {
-        ready = true;
-        logged = false;
-      });
-    }
+    setState(() {
+      ready = true;
+      isLogged = session != null ? true : false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    NeumorphicTheme.isUsingDark(context)
-        ? SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light)
-        : SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    if (ready) {
+      return ValueListenableBuilder(
+          valueListenable: Hive.box<bool>(HiveBoxes.darkmodeBox).listenable(),
+          builder: (BuildContext context, Box<bool> box, _) {
+            var isDarkMode = true;
+            var darkMode = box.get(HiveKeys.darkmode);
+            isDarkMode = darkMode ?? true;
 
-    return NeumorphicApp(
-      debugShowCheckedModeBanner: false,
-      title: 'ECPF-App',
-      themeMode: ThemeMode.dark,
-      theme: NeumorphicThemeData(
-          // textTheme: GoogleFonts.assistantTextTheme(),
-          // baseColor: AppColors.lightPrimary,
-          // accentColor: AppColors.lightSecundary,
-          // shadowLightColor: AppColors.lightShadow,
-          // defaultTextColor: AppColors.lightText,
-          // lightSource: LightSource.topLeft
-          textTheme: GoogleFonts.assistantTextTheme(),
-          baseColor: AppColors.darkPrimary,
-          accentColor: AppColors.darkSecundary,
-          shadowLightColor: AppColors.darkShadow,
-          defaultTextColor: AppColors.darkText,
-          borderColor: AppColors.darkBorder,
-          lightSource: LightSource.topLeft),
-      darkTheme: NeumorphicThemeData(
-          textTheme: GoogleFonts.karlaTextTheme(),
-          baseColor: AppColors.darkPrimary,
-          accentColor: AppColors.darkSecundary,
-          shadowLightColor: AppColors.darkShadow,
-          defaultTextColor: AppColors.darkText,
-          borderColor: AppColors.darkBorder,
-          lightSource: LightSource.topLeft,
-          variantColor: AppColors.darkVariant),
-      home: HomeNavigation(ready: ready, logged: logged),
-    );
+            isDarkMode
+                ? SystemChrome.setSystemUIOverlayStyle(
+                    SystemUiOverlayStyle.light)
+                : SystemChrome.setSystemUIOverlayStyle(
+                    SystemUiOverlayStyle.dark);
+
+            return NeumorphicApp(
+              debugShowCheckedModeBanner: false,
+              title: 'ECPF-App',
+              themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              theme: NeumorphicThemeData(
+                  textTheme: GoogleFonts.karlaTextTheme(),
+                  baseColor: AppColors.lightPrimary,
+                  accentColor: AppColors.lightSecundary,
+                  shadowLightColor: AppColors.lightShadow,
+                  variantColor: AppColors.lightVariant,
+                  defaultTextColor: AppColors.lightText,
+                  lightSource: LightSource.topLeft),
+              darkTheme: NeumorphicThemeData(
+                textTheme: GoogleFonts.karlaTextTheme(),
+                baseColor: AppColors.darkPrimary,
+                accentColor: AppColors.darkSecundary,
+                shadowLightColor: AppColors.darkShadow,
+                defaultTextColor: AppColors.darkText,
+                variantColor: AppColors.darkVariant,
+                lightSource: LightSource.topLeft,
+              ),
+              home: HomeNavigation(logged: isLogged),
+            );
+          });
+    } else {
+      return Container(color: Colors.red);
+    }
   }
 }

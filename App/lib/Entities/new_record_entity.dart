@@ -13,7 +13,7 @@ class NewRecordEntity {
   final double peso;
   final double imc;
   final double percentilImc;
-  final double resultadoImc;
+  final String resultadoImc;
   final double porcentajeGrasa;
   final double percentilGrasa;
   final String resultadoGrasa;

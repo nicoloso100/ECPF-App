@@ -27,5 +27,7 @@ export class CreateRecordDto {
   sitAndReach: number;
   percentilFlexibilidad: number;
   resultadoSitAndReach: string;
+  total: number;
+  resultado: string;
   creationDate?: Date;
 }

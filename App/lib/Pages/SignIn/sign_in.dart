@@ -100,7 +100,9 @@ class _SignInPageState extends State<SignInPage> {
                             Navigator.pushNamed(context, HomeRoutes.signUp),
                         child: RichText(
                             text: TextSpan(children: [
-                          const TextSpan(text: "¿Aún no tienes cuenta?"),
+                          TextSpan(
+                              text: "¿Aún no tienes cuenta?",
+                              style: TextStyle(color: theme.defaultTextColor)),
                           TextSpan(
                               text: " Registrate",
                               style: TextStyle(

@@ -29,6 +29,8 @@ export var isRecordValid = (record: CreateRecordDto) => {
     record.resultadoFBrazos != null &&
     record.sitAndReach != null &&
     record.percentilFlexibilidad != null &&
+    record.total != null &&
+    record.resultado != null &&
     record.resultadoSitAndReach
   ) {
     return true;

@@ -7,7 +7,7 @@ export type RecordDocument = Record & Document;
 @Schema()
 export class Record {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  user: User;
+  userId: User;
 
   @Prop({ required: true })
   documento: string;
@@ -89,6 +89,12 @@ export class Record {
 
   @Prop({ required: true })
   resultadoSitAndReach: string;
+
+  @Prop({ required: true })
+  total: number;
+
+  @Prop({ required: true })
+  resultado: string;
 
   @Prop({ required: true })
   creationDate: Date;

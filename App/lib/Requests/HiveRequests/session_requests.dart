@@ -18,6 +18,13 @@ Future<String?> getSession() async {
   }
 }
 
+Future deleteSession() async {
+  try {
+    var box = await getSessionBox();
+    box.delete(HiveKeys.session);
+  } catch (_) {}
+}
+
 Future<Box<String>> getSessionBox() async {
   await Hive.initFlutter();
   if (!Hive.isBoxOpen(HiveBoxes.sessionBox)) {

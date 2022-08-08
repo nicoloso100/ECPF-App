@@ -14,10 +14,9 @@ class HomeButton extends StatelessWidget {
       onPressed: onPress,
       style: NeumorphicStyle(
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(10)),
-          shape: NeumorphicShape.convex,
+          shape: NeumorphicShape.flat,
           color: theme.variantColor,
-          intensity: 3,
-          depth: 3),
+          depth: 1),
       child: SizedBox(
           width: 110,
           child: Center(

@@ -26,7 +26,6 @@ class DefaultInputField extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
           child: TextFormField(
             controller: controller,
-            autofocus: true,
             style: TextStyle(color: theme.defaultTextColor, fontSize: 14),
             keyboardType:
                 onlyNumbers ? TextInputType.number : TextInputType.text,

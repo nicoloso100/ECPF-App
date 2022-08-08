@@ -1,3 +1,7 @@
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
+GlobalKey<NavigatorState> homeNavigationKey = GlobalKey<NavigatorState>();
+
 class HomeRoutes {
   static const String home = "/";
   static const String showCalculator = "/showCalculator";
@@ -9,4 +13,5 @@ class HomeRoutes {
 class LoggedRoutes {
   static const String showRecords = "/showRecords";
   static const String addRecord = "/addRecord";
+  static const String recordDetails = "/recordDetails";
 }

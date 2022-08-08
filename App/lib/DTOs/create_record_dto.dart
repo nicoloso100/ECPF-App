@@ -8,7 +8,7 @@ class CreateRecordDTO {
   final double peso;
   final double imc;
   final double percentilImc;
-  final double resultadoImc;
+  final String resultadoImc;
   final double porcentajeGrasa;
   final double percentilGrasa;
   final String resultadoGrasa;
@@ -29,6 +29,8 @@ class CreateRecordDTO {
   final double sitAndReach;
   final double percentilFlexibilidad;
   final String resultadoSitAndReach;
+  final double total;
+  final String resultado;
 
   CreateRecordDTO(
       {required this.userId,
@@ -58,10 +60,12 @@ class CreateRecordDTO {
       required this.resultadoFBrazos,
       required this.sitAndReach,
       required this.percentilFlexibilidad,
-      required this.resultadoSitAndReach});
+      required this.resultadoSitAndReach,
+      required this.total,
+      required this.resultado});
 
   static CreateRecordDTO getDtoFromEntity(
-      NewRecordEntity entity, String userId) {
+      NewRecordEntity entity, String userId, double total, String resultado) {
     return CreateRecordDTO(
         userId: userId,
         documento: entity.documento,
@@ -90,7 +94,9 @@ class CreateRecordDTO {
         resultadoFBrazos: entity.resultadoFBrazos,
         sitAndReach: entity.sitAndReach,
         percentilFlexibilidad: entity.percentilFlexibilidad,
-        resultadoSitAndReach: entity.resultadoSitAndReach);
+        resultadoSitAndReach: entity.resultadoSitAndReach,
+        total: total,
+        resultado: resultado);
   }
 
   Map<String, dynamic> toJson() {
@@ -122,7 +128,9 @@ class CreateRecordDTO {
       "resultadoFBrazos": resultadoFBrazos,
       "sitAndReach": sitAndReach,
       "percentilFlexibilidad": percentilFlexibilidad,
-      "resultadoSitAndReach": resultadoSitAndReach
+      "resultadoSitAndReach": resultadoSitAndReach,
+      "total": total,
+      "resultado": resultado,
     };
   }
 }
